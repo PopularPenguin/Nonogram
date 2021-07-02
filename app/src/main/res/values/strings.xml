@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Nonograms</string>
+
+    <!-- Title Screen -->
+    <string name="title_item"># </string>
+    <string name="title_level">Level</string>
+
+    <!-- Solution State -->
+    <string name="solved_true">Nonogram complete!</string>
+    <string name="solved_false">Unsolved…</string>
+
+    <!-- Button Labels -->
+    <string name="button_fill">Fill</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_guess">Guess</string>
+</resources>
