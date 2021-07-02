@@ -1,8 +1,8 @@
 package com.popularpenguin.nonogram.repository
 
-import com.popularpenguin.nonogram.model.SampleData
+import com.popularpenguin.nonogram.model.NonogramData
 
 class NonogramRepository {
 
-    fun getNonograms() = SampleData.nonograms
+    fun getNonograms() = NonogramData.nonograms
 }

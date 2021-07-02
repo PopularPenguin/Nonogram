@@ -42,9 +42,8 @@ fun TitleScreen(
     navController: NavController,
     viewModel: NonogramViewModel
 ) {
-    val context = LocalContext.current
     val index = runBlocking {
-        viewModel.getCurrentNonogramIndex(context.prefsDataStore)
+        viewModel.getCurrentNonogramIndex()
     }
     val navigate: (String) -> Unit = { route ->
         navController.navigate(route = route)

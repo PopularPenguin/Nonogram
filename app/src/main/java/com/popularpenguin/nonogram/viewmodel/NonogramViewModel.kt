@@ -25,7 +25,8 @@ import javax.inject.Inject
 class NonogramViewModel
 @Inject
 constructor(
-    repository: NonogramRepository
+    repository: NonogramRepository,
+    private val prefsDataStore: DataStore<Preferences>
 ) : ViewModel() {
     private val nonograms = repository.getNonograms()
 
@@ -43,7 +44,7 @@ constructor(
         nonogram = nonograms[nonogramIndex]
     }
 
-    suspend fun getCurrentNonogramIndex(prefsDataStore: DataStore<Preferences>): Int {
+    suspend fun getCurrentNonogramIndex(): Int {
         nonogramIndex = prefsDataStore.data
             .map { prefs ->
                 prefs[PreferenceKeys.LEVEL_INDEX] ?: 0
