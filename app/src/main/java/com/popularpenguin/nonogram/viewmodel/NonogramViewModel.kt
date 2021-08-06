@@ -77,6 +77,14 @@ constructor(
         }
     }
 
+    fun reset() {
+        nonogram.reset()
+        // trigger a recomposition
+        val currentMode = mode
+        mode = Mode.Reset
+        mode = currentMode
+    }
+
     fun checkSolution() {
         solutionState = nonogram.checkSolution()
     }
@@ -92,5 +100,5 @@ constructor(
         }
     }
 
-    enum class Mode { Fill, Skip, Guess, Paused }
+    enum class Mode { Fill, Skip, Guess, Paused, Reset }
 }

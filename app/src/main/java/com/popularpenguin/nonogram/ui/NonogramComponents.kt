@@ -350,3 +350,37 @@ fun ModeButton(
         )
     }
 }
+
+// reset the current nonogram
+@Composable
+fun ResetButton(viewModel: NonogramViewModel) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconButton(
+            modifier = Modifier
+                .background(brush = Brush.linearGradient(
+                    colors = listOf(Color.White, Color.LightGray)
+                ), shape = CircleShape),
+            onClick = {
+                if (viewModel.mode != NonogramViewModel.Mode.Paused) {
+                    viewModel.reset()
+                }
+            }
+        ) {
+            Icon(
+                modifier = Modifier.size(40.dp),
+                painter = painterResource(id = R.drawable.reset),
+                contentDescription = null
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(id = R.string.button_reset),
+            color = Color.White,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+        )
+    }
+
+}

@@ -1,6 +1,7 @@
 package com.popularpenguin.nonogram.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.popularpenguin.nonogram.model.SolutionState
@@ -42,7 +42,6 @@ fun NonogramScreen(
 
         viewModel.next(context = LocalContext.current, navigate = navigate)
     }
-
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -52,66 +51,84 @@ fun NonogramScreen(
                 )
             )
             .fillMaxSize()
+            .horizontalScroll(state = rememberScrollState())
+            .verticalScroll(state = rememberScrollState())
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(state = rememberScrollState()),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.End
         ){
-            if (viewModel.solutionState == SolutionState.Solved()) {
-                StatusView(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .height(80.dp)
-                )
-            } else {
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .height(80.dp),
-                    text = "${viewModel.nonogramIndex}",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 48.sp,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Spacer(
-                modifier = Modifier.height(80.dp)
+            Header(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                viewModel = viewModel
             )
-            Row {
-                // scale size down slightly for each cell past 5 in a column
-                val scale = 1.275f - 0.055f * viewModel.nonogram.cells.size
+            Spacer(
+                modifier = Modifier.height(60.dp)
+            )
+            Body(viewModel = viewModel)
+            Spacer(
+                modifier = Modifier.height(60.dp)
+            )
+            Footer(viewModel = viewModel)
+        }
+    }
+}
 
-                RowHints(
-                    hints = viewModel.nonogram.rowHints,
-                    scale = scale,
-                    modifier = Modifier.align(Alignment.Bottom)
-                )
-                Column {
-                    ColumnHints(
-                        hints = viewModel.nonogram.columnHints,
-                        scale = scale
-                    )
-                    GridView(
-                        cells = viewModel.nonogram.cells,
-                        mode = viewModel.mode,
-                        scale = scale,
-                        onClick = viewModel::checkSolution
-                    )
-                }
-            }
-            Spacer(
-                modifier = Modifier.height(80.dp)
+@Composable
+fun Header(
+    modifier: Modifier = Modifier,
+    viewModel: NonogramViewModel
+) {
+    if (viewModel.solutionState == SolutionState.Solved()) {
+        StatusView(
+            modifier = modifier
+        )
+    } else {
+            ResetButton(viewModel = viewModel)
+            Text(
+                modifier = modifier,
+                text = "${viewModel.nonogramIndex}",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 60.sp,
+                textAlign = TextAlign.Center
             )
-            ModeButtonRow(
+    }
+}
+
+@Composable
+fun Body(viewModel: NonogramViewModel) {
+    Row {
+        // scale size down slightly for each cell past 5 in a column
+        val scale = 1.3f - 0.07f * viewModel.nonogram.cells.size
+
+        RowHints(
+            hints = viewModel.nonogram.rowHints,
+            scale = scale,
+            modifier = Modifier.align(Alignment.Bottom)
+        )
+        Column {
+            ColumnHints(
+                hints = viewModel.nonogram.columnHints,
+                scale = scale
+            )
+            GridView(
+                cells = viewModel.nonogram.cells,
                 mode = viewModel.mode,
-                changeMode = viewModel::changeMode
+                scale = scale,
+                onClick = viewModel::checkSolution
             )
         }
     }
+}
+
+@Composable
+fun Footer(viewModel: NonogramViewModel) {
+    ModeButtonRow(
+        mode = viewModel.mode,
+        changeMode = viewModel::changeMode
+    )
 }
 
 // Show a message + circular indicator at the top if a nonogram is completed

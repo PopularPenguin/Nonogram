@@ -10,6 +10,7 @@
     <string name="solved_false">Unsolved…</string>
 
     <!-- Button Labels -->
+    <string name="button_reset">Reset</string>
     <string name="button_fill">Fill</string>
     <string name="button_skip">Skip</string>
     <string name="button_guess">Guess</string>

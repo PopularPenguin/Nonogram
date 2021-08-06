@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -51,16 +49,16 @@ android {
 dependencies {
     // Android
     implementation("androidx.core:core-ktx:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.0-rc02")
+    implementation("androidx.activity:activity-compose:1.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha04")
-    implementation("androidx.datastore:datastore-preferences:1.0.0-rc01")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha06")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
