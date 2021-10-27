@@ -80,14 +80,14 @@ fun Header(
     modifier: Modifier = Modifier,
     viewModel: NonogramViewModel
 ) {
+    ResetButton(viewModel = viewModel)
     if (viewModel.solutionState == SolutionState.Solved()) {
         StatusView(
-            modifier = modifier
+            modifier = modifier.height(80.dp)
         )
     } else {
-            ResetButton(viewModel = viewModel)
             Text(
-                modifier = modifier,
+                modifier = modifier.height(80.dp),
                 text = "${viewModel.nonogramIndex}",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -135,16 +135,16 @@ fun Footer(viewModel: NonogramViewModel) {
 @Composable
 fun StatusView(modifier: Modifier) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = stringResource(id = R.string.solved_true),
             color = Color.White,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
+        Spacer(modifier = Modifier.width(16.dp))
         CircularProgressIndicator()
     }
 }
