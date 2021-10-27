@@ -355,32 +355,30 @@ fun ModeButton(
 @Composable
 fun ResetButton(viewModel: NonogramViewModel) {
     Column(
+        modifier = Modifier.size(80.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        IconButton(
-            modifier = Modifier
-                .background(brush = Brush.linearGradient(
-                    colors = listOf(Color.White, Color.LightGray)
-                ), shape = CircleShape),
-            onClick = {
-                if (viewModel.mode != NonogramViewModel.Mode.Paused) {
-                    viewModel.reset()
-                }
+        if (viewModel.mode != NonogramViewModel.Mode.Paused) {
+            IconButton(
+                modifier = Modifier
+                    .background(brush = Brush.linearGradient(
+                        colors = listOf(Color.White, Color.LightGray)
+                    ), shape = CircleShape),
+                onClick = { viewModel.reset() }
+            ) {
+                Icon(
+                    modifier = Modifier.size(40.dp),
+                    painter = painterResource(id = R.drawable.reset),
+                    contentDescription = null
+                )
             }
-        ) {
-            Icon(
-                modifier = Modifier.size(40.dp),
-                painter = painterResource(id = R.drawable.reset),
-                contentDescription = null
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(id = R.string.button_reset),
+                color = Color.White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(id = R.string.button_reset),
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-        )
     }
-
 }
